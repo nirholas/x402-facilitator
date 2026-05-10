@@ -16,7 +16,7 @@ export function createWellKnownRoute(facilitator: Facilitator, config: Facilitat
     const kinds = config.chains.flatMap((chain) => {
       const tokens = getTokensForChain(chain.chainId);
       return tokens.map((token) => ({
-        x402Version: 1,
+        x402Version: 2,
         scheme: 'exact' as const,
         network: getNetworkName(chain.chainId),
         asset: token.address,
@@ -26,14 +26,14 @@ export function createWellKnownRoute(facilitator: Facilitator, config: Facilitat
     });
 
     return c.json({
-      x402Version: 1,
+      x402Version: 2,
       facilitator: {
-        name: 'SperaxOS x402 Facilitator',
+        name: 'three.ws x402 Facilitator',
         address: facilitator.getAddress(),
         operator: {
-          name: 'SperaxOS',
-          url: 'https://chat.sperax.io',
-          website: 'https://sperax.io',
+          name: 'three.ws',
+          url: 'https://three.ws',
+          website: 'https://three.ws',
         },
       },
       endpoints: {

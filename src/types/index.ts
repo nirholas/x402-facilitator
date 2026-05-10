@@ -28,57 +28,85 @@ export interface PermitAuthorization {
   deadline: bigint;
 }
 
-/** x402 payment payload sent by the client */
-export interface X402Payment {
-  /** Chain ID where the payment should be settled */
+/** x402 v2 payment payload (sent by client in X-PAYMENT header) */
+export interface X402PaymentV2 {
+  x402Version: 2;
+  scheme: 'exact';
+  /** CAIP-2 network identifier e.g. "eip155:8453" */
+  network: string;
+  payload: {
+    signature: Hex;
+    authorization: {
+      from: Address;
+      to: Address;
+      /** Decimal string */
+      value: string;
+      /** Decimal string (unix seconds) */
+      validAfter: string;
+      /** Decimal string (unix seconds) */
+      validBefore: string;
+      nonce: Hex;
+    };
+  };
+}
+
+/** x402 v1 payment payload (legacy, kept for backward compat) */
+export interface X402PaymentV1 {
+  x402Version: 1;
   chainId: SupportedChainId;
-  /** Token contract address (e.g. USDC) */
   token: Address;
-  /** Settlement scheme: 'eip3009' (default) or 'eip2612' */
   scheme?: 'eip3009' | 'eip2612';
-  /** EIP-3009 authorization parameters (when scheme is eip3009 or omitted) */
   authorization: TransferAuthorization;
-  /** EIP-2612 permit parameters (when scheme is eip2612) */
   permit?: PermitAuthorization;
-  /** EIP-712 signature (r + s + v) */
+  signature: Hex;
+}
+
+export type X402Payment = X402PaymentV2 | X402PaymentV1;
+
+/** Internal normalized payment (after v1/v2 parsing) */
+export interface NormalizedPayment {
+  chainId: SupportedChainId;
+  token?: Address;
+  scheme: 'eip3009' | 'eip2612';
+  authorization: TransferAuthorization;
+  permit?: PermitAuthorization;
   signature: Hex;
 }
 
 /** Result of payment verification (internal) */
 export interface VerifyResult {
   valid: boolean;
-  /** Human-readable reason if invalid */
   reason?: string;
-  /** Recovered signer address */
   signer?: Address;
 }
 
-/** x402 spec response for POST /verify
- *  Matches SDK VerifyResponseSchema: { isValid, invalidReason?, payer? }
- *  Also includes `valid` for x402 draft compatibility */
+/** Payment requirements (what the resource server demands) */
+export interface PaymentRequirements {
+  chainId: SupportedChainId;
+  asset: Address;
+  payTo: Address;
+  maxAmountRequired: bigint;
+  expiry?: number;
+}
+
+/** x402 v2 verify response — includes accepted field */
 export type VerifyResponse =
-  | { valid: true; isValid: true; payer: Address }
-  | { valid: false; isValid: false; invalidReason: string };
+  | { isValid: true; payer: Address; accepted: Record<string, unknown> }
+  | { isValid: false; invalidReason: string; invalidMessage?: string };
 
 /** Result of on-chain settlement */
 export interface SettleResult {
   success: boolean;
-  /** Transaction hash on success */
   txHash?: Hex;
-  /** Error message on failure */
   error?: string;
-  /** Chain ID where settlement occurred */
   chainId: SupportedChainId;
-  /** Network name (e.g. "base", "arbitrum") */
   network?: string;
-  /** Block number where the tx was included */
   blockNumber?: number;
 }
 
-/** x402 spec response for POST /settle
- *  Includes both `txHash` (x402 draft) and `transaction` (Coinbase SDK) for compatibility */
+/** x402 settle response */
 export type SettleResponse =
-  | { success: true; txHash: Hex; transaction: Hex; network: string; payer: Address }
+  | { success: true; transaction: Hex; network: string; payer: Address }
   | { success: false; errorReason: string };
 
 /** Chain configuration */
@@ -96,20 +124,6 @@ export interface TokenConfig {
   address: Address;
   symbol: string;
   decimals: number;
-}
-
-/** Payment requirements (what the resource server demands) */
-export interface PaymentRequirements {
-  /** Chain the payment must be on */
-  chainId: SupportedChainId;
-  /** Token contract address */
-  asset: Address;
-  /** Recipient address (payTo) */
-  payTo: Address;
-  /** Minimum amount required */
-  maxAmountRequired: bigint;
-  /** Optional expiry timestamp (unix seconds) */
-  expiry?: number;
 }
 
 /** Server info response */
@@ -144,20 +158,12 @@ export interface HealthResponse {
 
 /** Configuration for the Facilitator orchestrator */
 export interface FacilitatorConfig {
-  /** Private key for the settlement wallet (hex with 0x prefix) */
   privateKey: Hex;
-  /** Supported chain configs */
   chains: ChainConfig[];
-  /** Server port */
   port: number;
-  /** Server hostname */
   host: string;
-  /** Rate limit max requests per window */
   rateLimitMax: number;
-  /** Rate limit window in milliseconds */
   rateLimitWindowMs: number;
-  /** Allowed CORS origins */
   corsOrigins: string[];
-  /** Log level */
   logLevel: 'debug' | 'info' | 'warn' | 'error';
 }

@@ -16,7 +16,7 @@ export function createSupportedRoute(config: FacilitatorConfig): Hono {
     const kinds = config.chains.flatMap((chain) => {
       const tokens = getTokensForChain(chain.chainId);
       return tokens.map((token) => ({
-        x402Version: 1,
+        x402Version: 2,
         scheme: 'exact' as const,
         network: getNetworkName(chain.chainId as SupportedChainId),
         settlementScheme: token.scheme,

@@ -10,9 +10,9 @@ export function createInfoRoute(facilitator: Facilitator, config: FacilitatorCon
 
   route.get('/', (c) => {
     const info: FacilitatorInfo = {
-      name: 'SperaxOS x402 Facilitator',
-      version: '1.0.0',
-      x402Version: 1,
+      name: 'three.ws x402 Facilitator',
+      version: FACILITATOR_VERSION,
+      x402Version: 2,
       facilitatorAddress: facilitator.getAddress(),
       supportedChains: config.chains.map((chain) => ({
         chainId: chain.chainId as SupportedChainId,
@@ -20,8 +20,8 @@ export function createInfoRoute(facilitator: Facilitator, config: FacilitatorCon
         tokens: getTokensForChain(chain.chainId),
       })),
       operator: {
-        name: 'SperaxOS',
-        url: 'https://chat.sperax.io',
+        name: 'three.ws',
+        url: 'https://three.ws',
       },
     };
 

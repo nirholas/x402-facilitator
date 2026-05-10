@@ -46,8 +46,8 @@ app.route('/.well-known/x402', createWellKnownRoute(facilitator, config));
 
 // Root redirect
 app.get('/', (c) => c.json({
-  name: 'SperaxOS x402 Facilitator',
-  docs: 'https://github.com/Sperax/x402-facilitator',
+  name: 'three.ws x402 Facilitator',
+  docs: 'https://github.com/nirholas/x402-facilitator',
   endpoints: ['/verify', '/settle', '/health', '/info', '/supported', '/balances', '/metrics', '/status/:txHash', '/fees', '/.well-known/x402'],
 }));
 

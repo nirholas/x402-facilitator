@@ -18,7 +18,7 @@ export interface TokenInfo {
 /**
  * Supported tokens per chain.
  * USDC uses EIP-3009 (transferWithAuthorization).
- * USDs uses EIP-2612 (permit + transferFrom) — domain name is "Sperax USD" (from on-chain name()).
+ * USDs uses EIP-2612 (permit + transferFrom) — domain name is "Sperax USD" (on-chain EIP-712 domain, cannot change).
  * SPA is standard ERC20 without EIP-2612 — not included as a settlement token.
  */
 const TOKEN_REGISTRY: Record<SupportedChainId, TokenInfo[]> = {

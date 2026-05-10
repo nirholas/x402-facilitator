@@ -1,7 +1,7 @@
 {
-  "name": "@sperax/x402-facilitator",
-  "version": "1.0.0",
-  "description": "x402 payment facilitator — verifies and settles EIP-3009 USDC micropayments on Base, Arbitrum, and Ethereum",
+  "name": "@threews/x402-facilitator",
+  "version": "2.0.0",
+  "description": "three.ws x402 facilitator — verify and settle USDC micropayments on EVM chains",
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
@@ -35,15 +35,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Sperax/x402-facilitator"
+    "url": "https://github.com/nirholas/x402-facilitator"
   },
-  "keywords": [
-    "x402",
-    "facilitator",
-    "micropayments",
-    "USDC",
-    "EIP-3009",
-    "Base",
-    "DeFi"
-  ]
+  "keywords": ["x402", "facilitator", "micropayments", "USDC", "EIP-3009", "Base", "Arbitrum"]
 }

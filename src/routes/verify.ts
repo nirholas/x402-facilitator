@@ -12,12 +12,12 @@ const verifyBodySchema = z.object({
   paymentRequirements: z.unknown().transform(decodePaymentPayload).pipe(paymentRequiredSchema),
 });
 
-/**
- * Convert validated Zod output to internal X402Payment type.
- * Zod gives us strings; the core needs bigints + typed addresses.
- */
 function toX402Payment(raw: z.infer<typeof paymentPayloadSchema>): X402Payment {
+  if (raw.x402Version === 2) {
+    return raw as X402Payment;
+  }
   return {
+    x402Version: 1,
     chainId: raw.chainId as SupportedChainId,
     token: raw.asset as Address,
     authorization: {
@@ -47,11 +47,9 @@ export function createVerifyRoute(facilitator: Facilitator): Hono {
 
   route.post('/', zValidator('json', verifyBodySchema), async (c) => {
     const { paymentPayload: rawPayment, paymentRequirements: rawReqs } = c.req.valid('json');
-
     const payment = toX402Payment(rawPayment);
     const requirements = toPaymentRequirements(rawReqs);
     const result = await facilitator.verify(payment, requirements);
-
     return c.json(result, result.isValid ? 200 : 400);
   });
 
