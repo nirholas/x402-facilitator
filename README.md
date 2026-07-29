@@ -34,6 +34,7 @@ npm run dev
 | POST | `/settle` | Settle payment on-chain |
 | GET | `/balances` | Gas + USDC balances per chain |
 | GET | `/fees` | Estimated settlement cost |
+| GET | `/metrics` | Verification/settlement counts, latency percentiles, uptime |
 | GET | `/status/:txHash` | Transaction status |
 | GET | `/.well-known/x402` | x402 discovery |
 
