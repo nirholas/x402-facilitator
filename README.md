@@ -66,3 +66,7 @@ Deploy to Railway — set `FACILITATOR_PRIVATE_KEY` and fund the address with ET
 ## Operator
 
 [three.ws](https://three.ws) — AI agent infrastructure
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=nirholas/x402-facilitator&type=Date)](https://www.star-history.com/#nirholas/x402-facilitator&Date)
