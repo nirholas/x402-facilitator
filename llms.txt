@@ -1,0 +1,26 @@
+# x402-facilitator
+
+> x402 payment facilitator: verifies and settles EIP-3009 micropayments multichain. v2 facilitator.
+
+x402-facilitator is an open-source repository by nirholas, part of the three.ws ecosystem.
+
+## Docs
+
+- [README](https://github.com/nirholas/x402-facilitator/blob/HEAD/README.md): install, usage and reference
+- [Supported chains](https://github.com/nirholas/x402-facilitator/blob/HEAD/README.md#supported-chains)
+- [Quick start](https://github.com/nirholas/x402-facilitator/blob/HEAD/README.md#quick-start)
+- [API](https://github.com/nirholas/x402-facilitator/blob/HEAD/README.md#api)
+- [x402Version 2 payload format](https://github.com/nirholas/x402-facilitator/blob/HEAD/README.md#x402version-2-payload-format)
+- [Deployment](https://github.com/nirholas/x402-facilitator/blob/HEAD/README.md#deployment)
+- [Operator](https://github.com/nirholas/x402-facilitator/blob/HEAD/README.md#operator)
+- [AGENTS.md](https://github.com/nirholas/x402-facilitator/blob/HEAD/AGENTS.md): guidance for coding agents
+- [Full text for LLMs](https://github.com/nirholas/x402-facilitator/blob/HEAD/llms-full.txt): the README inlined
+
+## Project
+
+- [Source](https://github.com/nirholas/x402-facilitator)
+- [Issues](https://github.com/nirholas/x402-facilitator/issues)
+- [Discussions](https://github.com/nirholas/x402-facilitator/discussions)
+- [Homepage](https://github.com/nirholas/x402-facilitator)
+- [three.ws](https://three.ws): the platform this is part of
+- [All repositories by nirholas](https://github.com/nirholas/nirholas#readme)

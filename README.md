@@ -1,5 +1,10 @@
 # three.ws x402 Facilitator
 
+<!-- three.ws:badges -->
+[![GitHub stars](https://img.shields.io/github/stars/nirholas/x402-facilitator?style=flat&logo=github)](https://github.com/nirholas/x402-facilitator/stargazers) [![Last commit](https://img.shields.io/github/last-commit/nirholas/x402-facilitator?style=flat)](https://github.com/nirholas/x402-facilitator/commits) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat)](https://github.com/nirholas/x402-facilitator/pulls) [![AI agent friendly](https://img.shields.io/badge/AI%20agents-AGENTS.md%20%2B%20llms.txt-6d5dfc?style=flat)](https://github.com/nirholas/x402-facilitator/blob/HEAD/AGENTS.md)
+<!-- /three.ws:badges -->
+
+
 Verify and settle x402 v2 micropayments (USDC) on EVM chains. Powers `https://three.ws/pay`.
 
 **Live endpoint:** `https://facilitator.three.ws`
@@ -70,3 +75,26 @@ Deploy to Railway — set `FACILITATOR_PRIVATE_KEY` and fund the address with ET
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=nirholas/x402-facilitator&type=Date)](https://www.star-history.com/#nirholas/x402-facilitator&Date)
+
+<!-- three.ws:growth -->
+## Support the project
+
+If x402-facilitator saves you time, **[star it on GitHub](https://github.com/nirholas/x402-facilitator)**. Stars are how other developers and AI agents find the repositories worth trusting, and they cost you one click.
+
+Know someone who would use it? [Post on X](https://twitter.com/intent/tweet?text=x402-facilitator%3A%20x402%20payment%20facilitator%3A%20verifies%20and%20settles%20EIP-3009%20micropayments%20multichain&url=https%3A%2F%2Fgithub.com%2Fnirholas%2Fx402-facilitator) · [Share on Bluesky](https://bsky.app/intent/compose?text=x402-facilitator%3A%20x402%20payment%20facilitator%3A%20verifies%20and%20settles%20EIP-3009%20micropayments%20multichain%20https%3A%2F%2Fgithub.com%2Fnirholas%2Fx402-facilitator) · [Share on LinkedIn](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fgithub.com%2Fnirholas%2Fx402-facilitator) · [Submit to Hacker News](https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fgithub.com%2Fnirholas%2Fx402-facilitator&t=x402-facilitator%3A%20x402%20payment%20facilitator%3A%20verifies%20and%20settles%20EIP-3009%20micropayments%20multichain) · [Share on Reddit](https://www.reddit.com/submit?url=https%3A%2F%2Fgithub.com%2Fnirholas%2Fx402-facilitator&title=x402-facilitator%3A%20x402%20payment%20facilitator%3A%20verifies%20and%20settles%20EIP-3009%20micropayments%20multichain)
+
+## Built for AI agents too
+
+Coding agents and LLM tooling can read this repo directly: [AGENTS.md](./AGENTS.md), [llms.txt](./llms.txt), [llms-full.txt](./llms-full.txt). Point an agent at `https://github.com/nirholas/x402-facilitator` and it has the context it needs.
+
+## More from the same author
+
+- [All repositories by nirholas](https://github.com/nirholas/nirholas#readme): the full catalog, grouped by topic
+- [three.ws](https://three.ws): the platform for 3D AI agents with Solana wallets, a skill marketplace and x402 payments
+- Questions or ideas: [open an issue](https://github.com/nirholas/x402-facilitator/issues) or [start a discussion](https://github.com/nirholas/x402-facilitator/discussions)
+
+## Contributors
+
+[![Contributors](https://contrib.rocks/image?repo=nirholas/x402-facilitator)](https://github.com/nirholas/x402-facilitator/graphs/contributors)
+
+<!-- /three.ws:growth -->

@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it as below.
+title: "x402-facilitator"
+abstract: "x402 payment facilitator: verifies and settles EIP-3009 micropayments multichain. v2 facilitator."
+repository-code: "https://github.com/nirholas/x402-facilitator"
+url: "https://three.ws"
+authors:
+  - name: three.ws
+    website: "https://three.ws"
