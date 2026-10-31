@@ -93,27 +93,65 @@ function normalizePayment(payment: X402Payment, tokenFromRequirements?: Address)
   };
 }
 
+/**
+ * Check that a normalized payment satisfies the resource server's requirements:
+ * same chain, same asset, paid to the required recipient, and at least the
+ * required amount. For EIP-2612 the recipient and value are those of the permit
+ * because that is what settlement actually moves.
+ */
+function checkRequirements(normalized: NormalizedPayment, requirements: PaymentRequirements): VerifyResult | null {
+  const { chainId, authorization, scheme, permit } = normalized;
+  const token = normalized.token ?? requirements.asset;
+
+  if (chainId !== requirements.chainId) {
+    return { valid: false, reason: 'Chain ID mismatch' };
+  }
+
+  if (token.toLowerCase() !== requirements.asset.toLowerCase()) {
+    return { valid: false, reason: 'Asset mismatch' };
+  }
+
+  const useP = scheme === 'eip2612' && permit;
+  const recipient = useP ? permit.to : authorization.to;
+  const value = useP ? permit.value : authorization.value;
+
+  if (recipient.toLowerCase() !== requirements.payTo.toLowerCase()) {
+    return { valid: false, reason: 'Recipient mismatch' };
+  }
+
+  if (value < requirements.maxAmountRequired) {
+    return { valid: false, reason: 'Insufficient payment amount' };
+  }
+
+  if (requirements.expiry != null && requirements.expiry <= Math.floor(Date.now() / 1000)) {
+    return { valid: false, reason: 'Payment requirement expired' };
+  }
+
+  return null;
+}
+
+/**
+ * Verify a payment and bind it to the supplied requirements. Used by the
+ * Facilitator so that /verify and /settle never accept a payment that does not
+ * satisfy the requirements the caller sent.
+ */
+export async function verifyPaymentForRequirements(
+  payment: X402Payment,
+  requirements: PaymentRequirements,
+): Promise<VerifyResult> {
+  const mismatch = checkRequirements(normalizePayment(payment, requirements.asset), requirements);
+  if (mismatch) return mismatch;
+  return verifyPayment(payment, requirements.asset);
+}
+
 export class PaymentVerifier {
   async verify(payment: X402Payment, requirements: PaymentRequirements): Promise<VerifyResult> {
     const normalized = normalizePayment(payment, requirements.asset);
     const { chainId, authorization, signature, scheme, permit } = normalized;
     const token = normalized.token ?? requirements.asset;
 
-    if (chainId !== requirements.chainId) {
-      return { valid: false, reason: 'Chain ID mismatch' };
-    }
-
-    if (token.toLowerCase() !== requirements.asset.toLowerCase()) {
-      return { valid: false, reason: 'Asset mismatch' };
-    }
-
-    if (authorization.to.toLowerCase() !== requirements.payTo.toLowerCase()) {
-      return { valid: false, reason: 'Recipient mismatch' };
-    }
-
-    if (authorization.value < requirements.maxAmountRequired) {
-      return { valid: false, reason: 'Insufficient payment amount' };
-    }
+    const mismatch = checkRequirements(normalized, requirements);
+    if (mismatch) return mismatch;
 
     const now = BigInt(Math.floor(Date.now() / 1000));
 
@@ -189,8 +227,8 @@ export class PaymentVerifier {
   }
 }
 
-export async function verifyPayment(payment: X402Payment): Promise<VerifyResult> {
-  const normalized = normalizePayment(payment);
+export async function verifyPayment(payment: X402Payment, tokenFromRequirements?: Address): Promise<VerifyResult> {
+  const normalized = normalizePayment(payment, tokenFromRequirements);
   const { chainId, authorization, signature, scheme, permit, token } = normalized;
 
   if (!token) return { valid: false, reason: 'Token address required' };
