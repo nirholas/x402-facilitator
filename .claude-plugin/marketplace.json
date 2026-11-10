@@ -1,0 +1,22 @@
+{
+  "name": "x402-facilitator",
+  "owner": {
+    "name": "nirholas"
+  },
+  "description": "x402 payment facilitator service and the HTTP API skill for verifying and settling payments.",
+  "plugins": [
+    {
+      "name": "x402-facilitator-api",
+      "source": "./plugins/x402-facilitator-api",
+      "description": "Verify and settle x402 v2 EIP-3009 USDC payments through the facilitator HTTP API, or run your own facilitator.",
+      "category": "development",
+      "tags": [
+        "x402",
+        "payments",
+        "facilitator",
+        "usdc",
+        "evm"
+      ]
+    }
+  ]
+}
