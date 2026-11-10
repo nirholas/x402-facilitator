@@ -1,0 +1,19 @@
+{
+  "name": "x402-facilitator-api",
+  "version": "2.0.0",
+  "description": "Verify and settle x402 v2 EIP-3009 USDC payments through the facilitator HTTP API, or run your own facilitator.",
+  "author": {
+    "name": "nirholas"
+  },
+  "repository": "https://github.com/nirholas/x402-facilitator",
+  "homepage": "https://github.com/nirholas/x402-facilitator",
+  "keywords": [
+    "x402",
+    "facilitator",
+    "payments",
+    "eip-3009",
+    "usdc",
+    "evm",
+    "micropayments"
+  ]
+}
